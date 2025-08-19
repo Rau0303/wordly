@@ -17,11 +17,7 @@ class MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return AutoTabsRouter(
       homeIndex: 2,
-      routes: const [
-        HomeRoute(),
-        FavoritesRoute(),
-        SettingsRoute()
-      ],
+      routes: const [HomeRoute(), FavoritesRoute(), SettingsRoute()],
       builder: (context, child) {
         final tabsRouter = AutoTabsRouter.of(context);
         return Scaffold(
@@ -33,7 +29,7 @@ class MainScreenState extends State<MainScreen> {
             child: CustomBottomNavigationBar(
               icons: _getIcons(tabsRouter.activeIndex),
               labels: _getLabels(tabsRouter.activeIndex),
-              currentIndex: _getBottomNavIndex(tabsRouter.activeIndex),
+              currentIndex: tabsRouter.activeIndex,
               onTap: (index) => _handleBottomNavTap(index, tabsRouter),
             ),
           ),
@@ -50,15 +46,7 @@ class MainScreenState extends State<MainScreen> {
     return ['Главная', 'Избранное', 'Настройки'];
   }
 
-  int _getBottomNavIndex(int activeIndex) {
-    // Преобразуем индекс AutoTabsRouter в индекс BottomNavigationBar
-    if (activeIndex == 3) return 2; // ShopsRoute -> индекс 2 в BottomNavBar
-    if (activeIndex == 4) return 3; // AdditionalRoute -> индекс 3
-    return activeIndex;
-  }
-
   void _handleBottomNavTap(int index, TabsRouter tabsRouter) {
-    // Преобразуем индекс BottomNavigationBar в индекс AutoTabsRouter
     int newActiveIndex;
     switch (index) {
       case 0:
@@ -68,11 +56,7 @@ class MainScreenState extends State<MainScreen> {
         newActiveIndex = 1;
         break;
       case 2:
-        // Переключаем между Map (2) и Shops (3)
-        newActiveIndex = tabsRouter.activeIndex == 2 ? 3 : 2;
-        break;
-      case 3:
-        newActiveIndex = 4;
+        newActiveIndex = 2;
         break;
       default:
         newActiveIndex = index;
@@ -97,22 +81,15 @@ class CustomBottomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-
-    final labelFontSize = screenWidth * 0.035;
+    final size = MediaQuery.of(context).size;
     final theme = Theme.of(context);
     final isDarkTheme = theme.brightness == Brightness.dark;
-
     return Padding(
       padding: const EdgeInsets.only(bottom: 5),
       child: Container(
         decoration: BoxDecoration(
-          color: isDarkTheme
-              ? AppColors.darkGray
-              : Colors.white, // Background color
-          borderRadius: BorderRadius.circular(
-            screenWidth * 0.1,
-          ), // Border radius depends on screen width
+          color: isDarkTheme ? AppColors.darkGray : Colors.white,
+          borderRadius: BorderRadius.circular(size.width * 0.1),
           boxShadow: [
             BoxShadow(
               color: isDarkTheme
@@ -128,20 +105,15 @@ class CustomBottomNavigationBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: List.generate(icons.length, (index) {
             final isSelected = currentIndex == index;
-
             return GestureDetector(
-              onTap: () {
-                onTap(index); // Вызываем внешний обработчик onTap
-              },
+              onTap:() {onTap(index);},
               child: Container(
                 padding: EdgeInsets.symmetric(
-                  horizontal: screenWidth * 0.03,
-                  vertical: screenWidth * 0.02,
-                ), 
+                  horizontal: size.width * 0.03,
+                  vertical: size.height * 0.01,
+                ),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(
-                    screenWidth * 0.05,
-                  ), // Радиус углов зависит от ширины экрана
+                  borderRadius: BorderRadius.circular(size.width * 0.05),
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -150,13 +122,12 @@ class CustomBottomNavigationBar extends StatelessWidget {
                       icons[index],
                       color: isSelected ? theme.primaryColor : Colors.grey,
                     ),
-                    if (isSelected) // Показываем текст только для выбранного индекса
+                    if (isSelected)
                       Text(
                         labels[index],
-                        style: TextStyle(
+                        style: theme.textTheme.bodyMedium?.copyWith(
                           color: theme.primaryColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: labelFontSize,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                   ],
