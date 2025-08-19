@@ -56,3 +56,10 @@ flutter:
 
   uses-material-design: true
 
+
+  # мои шрифты думаю одного шрифта будет достаточно
+  fonts:
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat-Medium.ttf
+
