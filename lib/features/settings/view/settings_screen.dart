@@ -12,6 +12,18 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    final theme = Theme.of(context);
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            surfaceTintColor: theme.primaryColor,
+            backgroundColor: theme.scaffoldBackgroundColor,
+            elevation: 0,
+            title: Text('Настройки', style: theme.textTheme.headlineMedium),
+          ),
+        ],
+      ),
+    );
   }
 }

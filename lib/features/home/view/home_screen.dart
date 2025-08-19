@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:wordly/ui/theme/app_colors.dart';
 
 @RoutePage()
 class HomeScreen extends StatefulWidget {
@@ -26,7 +27,9 @@ class _HomeScreenState extends State<HomeScreen> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            surfaceTintColor: Colors.transparent,
+            // snap: true,
+            // pinned: true,
+            surfaceTintColor: theme.primaryColor,
             backgroundColor: theme.scaffoldBackgroundColor,
             elevation: 0,
             title: Text('Главная', style: theme.textTheme.headlineMedium),
@@ -34,19 +37,17 @@ class _HomeScreenState extends State<HomeScreen> {
               preferredSize: const Size.fromHeight(70),
               child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: theme.hintColor.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: TextFormField(
-                      controller: _searchController,
-                      decoration: InputDecoration(
-                        hintText: 'Поиск синонимов...',
-                        border: OutlineInputBorder(borderSide: BorderSide.none),
-                        suffixIcon: Icon(CupertinoIcons.search),
-                      ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: theme.hintColor.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: TextFormField(
+                    controller: _searchController,
+                    decoration: InputDecoration(
+                      hintText: 'Поиск синонимов...',
+                      border: OutlineInputBorder(borderSide: BorderSide.none),
+                      suffixIcon: Icon(CupertinoIcons.search),
                     ),
                   ),
                 ),
@@ -54,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
 
-
+          
         ],
       ),
     );
