@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'app_colors.dart';
+import 'package:wordly/ui/ui.dart';
+
 
 
 final darkTheme = ThemeData(
@@ -17,7 +18,7 @@ final lightTheme = ThemeData(
   useMaterial3: true,
   primaryColor: AppColors.primary,
   fontFamily: 'Montserrat',
-  scaffoldBackgroundColor: const Color(0xFFEFF1F3),
+  scaffoldBackgroundColor: Colors.white,
   dividerTheme: DividerThemeData(
     color: Colors.grey.withValues(alpha: 0.1),
   ),
