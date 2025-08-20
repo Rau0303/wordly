@@ -16,12 +16,17 @@ class _WordlyAppState extends State<WordlyApp> {
   final _appRouter = AppRouter();
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'Wordly',
-      theme: lightTheme,
-      darkTheme: darkTheme,
-      debugShowCheckedModeBanner: false,
-      routerConfig: _appRouter.config(),
+    final repositoryContainer = RepositoryContainer.prod(config: widget.config);
+    return AppInitializer(
+      config: widget.config,
+      repositoryContainer: repositoryContainer,
+      child: MaterialApp.router(
+        title: 'Wordly',
+        theme: lightTheme,
+        darkTheme: darkTheme,
+        debugShowCheckedModeBanner: false,
+        routerConfig: _appRouter.config(),
+      ),
     );
   }
 }

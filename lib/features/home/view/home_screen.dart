@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:wordly/ui/theme/app_colors.dart';
+import 'package:wordly/ui/ui.dart';
 
 @RoutePage()
 class HomeScreen extends StatefulWidget {
@@ -14,11 +14,14 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final _searchController = TextEditingController();
 
+
   @override
   void dispose() {
     _searchController.dispose();
     super.dispose();
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   child: TextFormField(
                     controller: _searchController,
+                    onFieldSubmitted: (value) {},
                     decoration: InputDecoration(
                       hintText: 'Поиск синонимов...',
                       border: OutlineInputBorder(borderSide: BorderSide.none),
@@ -55,7 +59,20 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
 
-          
+          SliverList.builder(
+            itemCount: 10,
+            itemBuilder: (context, index) {
+              return SizedBox(
+                height: 80,
+                child: Card(
+                  color: AppColors.darkGray,
+                  child: Center(
+                    child: Text('res[index]', style: theme.textTheme.bodyLarge),
+                  ),
+                ),
+              );
+            },
+          ),
         ],
       ),
     );
